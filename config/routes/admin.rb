@@ -265,3 +265,11 @@ end
 resolve "Audit" do |audit|
   [*resource_hierarchy_for(audit.associated || audit.auditable), audit]
 end
+
+resolve "Budget::Group" do |group, options|
+  [group.budget, :group, options.merge(id: group)]
+end
+
+resolve "Budget::Heading" do |heading, options|
+  [heading.budget, :group, :heading, options.merge(group_id: heading.group, id: heading)]
+end

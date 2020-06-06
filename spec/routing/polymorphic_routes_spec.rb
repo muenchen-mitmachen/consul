@@ -54,6 +54,34 @@ describe "Polymorphic routes" do
   describe "admin_polymorphic_path" do
     include ActionDispatch::Routing::UrlFor
 
+    it "routes budget investments" do
+      budget = create(:budget)
+      investment = create(:budget_investment, budget: budget)
+
+      expect(admin_polymorphic_path(investment, action: :edit)).to eq(
+        edit_admin_budget_budget_investment_path(budget, investment)
+      )
+    end
+
+    it "routes budget groups" do
+      budget = create(:budget)
+      group = create(:budget_group, budget: budget)
+
+      expect(admin_polymorphic_path(group, action: :edit)).to eq(
+        edit_admin_budget_group_path(budget, group)
+      )
+    end
+
+    it "routes budget headings" do
+      budget = create(:budget)
+      group = create(:budget_group, budget: budget)
+      heading = create(:budget_heading, group: group)
+
+      expect(admin_polymorphic_path(heading, action: :edit)).to eq(
+        edit_admin_budget_group_heading_path(budget, group, heading)
+      )
+    end
+
     it "routes milestones for resources with no hierarchy" do
       proposal = create(:proposal)
       milestone = create(:milestone, milestoneable: proposal)
