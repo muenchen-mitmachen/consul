@@ -48,6 +48,7 @@ namespace :deploy do
   after :updating, "rvm1:install:rvm"
   after :updating, "rvm1:install:ruby"
   after :updating, "install_bundler_gem"
+
   before "deploy:migrate", "remove_local_census_records_duplicates"
 
   after "deploy:migrate", "add_new_settings"
@@ -66,6 +67,7 @@ namespace :deploy do
     after "add_new_settings", "execute_release_tasks"
     invoke "deploy"
   end
+    
 end
 
 task :install_bundler_gem do
